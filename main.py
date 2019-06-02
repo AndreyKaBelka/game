@@ -8,26 +8,19 @@ class Game:
         self.win = pygame.display.set_mode([self.width, self.height], flags=pygame.RESIZABLE)
 
     def run(self):
-        run = True
-        while run:
+        while 1:
             self.win.fill([255, 255, 255])
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
+                    exit(0)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
-<<<<<<< HEAD
+                        exit(0)
                 if event.type == pygame.VIDEORESIZE:
                     self.win = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
-=======
-
-                if event.type == pygame.VIDEORESIZE:
-                    self.win = pygame.display.set_mode((event.w, event.h),
-                                                       pygame.RESIZABLE)
->>>>>>> 74170fe... init window
-        pygame.quit()
 
 
 g = Game(1000, 700)
