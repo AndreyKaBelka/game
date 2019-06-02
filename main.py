@@ -18,10 +18,15 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
+<<<<<<< HEAD
+                if event.type == pygame.VIDEORESIZE:
+                    self.win = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+=======
 
                 if event.type == pygame.VIDEORESIZE:
                     self.win = pygame.display.set_mode((event.w, event.h),
                                                        pygame.RESIZABLE)
+>>>>>>> 74170fe... init window
         pygame.quit()
 
 
