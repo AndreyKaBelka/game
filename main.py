@@ -1,8 +1,9 @@
 import pygame
 import os
 from lamp import Lamp
-from random import randint
 from levels import *
+
+global rect_rect
 
 
 class Game:
@@ -41,6 +42,19 @@ class Game:
             text_rect = text.get_rect(center=la.pos)
             self.win.blit(text, text_rect)
 
+    def draw_level_menu(self):
+        recta = pygame.image.load(os.path.join("game_assets", "reset.png"))
+        recta = pygame.transform.scale(recta, [200, 200])
+        global rect_rect
+        rect_rect = recta.get_rect(center=(self.width / 2, self.height / 2))
+        self.win.blit(recta, rect_rect)
+
+    def reset(self):
+        i = 0
+        for la in self.lamps:
+            la.charge = LEVEL1["charge"][i]
+            i += 1
+
     def run(self):
         clock = pygame.time.Clock()
         run = True
@@ -69,6 +83,11 @@ class Game:
                     pos_mouse = (event.pos[0], event.pos[1])
                     global press
                     press = False
+                    if lock:
+                        if rect_rect.collidepoint(pos_mouse):
+                            lock = False
+                            self.reset()
+
                     for la in self.lamps:
                         if la.lamp_rect.collidepoint(pos_mouse):
                             lamp = la
@@ -96,6 +115,8 @@ class Game:
 
             if not lock:
                 self.draw()
+            else:
+                self.draw_level_menu()
 
             for charge in self.lamps:
                 if charge.charge < 0:
@@ -106,5 +127,6 @@ class Game:
 
 
 if __name__ == "__main__":
+    g = 0
     g = Game(1280, 720)
     g.run()
