@@ -4,8 +4,10 @@ import os
 
 class Lamp:
     def __init__(self, x, y, charge):
-        self.lamp = pygame.image.load(os.path.join("game_assets", "lightbulb_on.png"))
-        self.lamp = pygame.transform.scale(self.lamp, [50, 50])
+        self.lamp_on = pygame.image.load(os.path.join("game_assets", "lightbulb_on.png"))
+        self.lamp_on = pygame.transform.scale(self.lamp_on, [50, 50])
+        self.lamp_off = pygame.image.load(os.path.join("game_assets", "lightbulb_off.png"))
+        self.lamp_off = pygame.transform.scale(self.lamp_off, [50, 50])
         self.pos = x, y
         self.charge = charge
         self.connected = []
@@ -14,7 +16,7 @@ class Lamp:
             if not (connect == self.pos):
                 self.connected.append(connect)
         '''
-        self.lamp_rect = self.lamp.get_rect(center=(self.pos[0], self.pos[1]))
+        self.lamp_rect = self.lamp_on.get_rect(center=(self.pos[0], self.pos[1]))
 
     def draw(self, win):
         """
