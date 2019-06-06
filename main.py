@@ -2,6 +2,7 @@ import pygame
 import os
 from lamp import Lamp
 from random import randint
+from levels import *
 
 
 class Game:
@@ -10,12 +11,13 @@ class Game:
         self.height = height
         self.win = pygame.display.set_mode([self.width, self.height], flags=pygame.RESIZABLE)
         self.bg = pygame.image.load(os.path.join("game_assets", "bg.png"))
-        self.pos = [(361, 524), (875, 520), (639, 189), (500, 189)]
+        self.pos = LEVEL1["pos"]
         self.lamps = []
-        self.connected = [[1, 2, 3], [0, 2], [0, 1], [0]]
-
+        self.connected = LEVEL1["connected"]
+        i = 0
         for dot in self.pos:
-            self.lamps.append(Lamp(dot[0], dot[1], randint(-3, 3)))
+            self.lamps.append(Lamp(dot[0], dot[1], LEVEL1["charge"][i]))
+            i += 1
         count = 0
         for lampa in self.lamps:
             for i in range(len(self.connected[count])):
@@ -42,6 +44,7 @@ class Game:
     def run(self):
         clock = pygame.time.Clock()
         run = True
+        lock = False
         double_click_event = pygame.USEREVENT + 1
         timer = 0
         global timerset
@@ -91,14 +94,15 @@ class Game:
                         timer = 0
                         lamp.take()
 
-            self.draw()
+            if not lock:
+                self.draw()
 
             for charge in self.lamps:
                 if charge.charge < 0:
                     gameover = False
 
             if gameover:
-                run = False
+                lock = True
 
 
 if __name__ == "__main__":
