@@ -25,8 +25,11 @@ class Lamp:
         :return:
         """
         for line in self.connected:
-            if line.pos != self.pos:
-                pygame.draw.line(win, (0, 0, 0), (self.pos[0], self.pos[1]), (line.pos[0], line.pos[1]))
+            pygame.draw.aaline(win, (0, 0, 0), (self.pos[0], self.pos[1]), (line.pos[0], line.pos[1]))
+
+    def draw_lamp(self, win):
+        self.lamp_rect = self.lamp_on.get_rect(center=(self.pos[0], self.pos[1]))
+        win.blit(self.lamp_on, self.lamp_rect)
 
     def give(self):
         """
